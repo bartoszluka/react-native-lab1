@@ -10,8 +10,9 @@ DEMO AGENDA
 
 3. Publish to Expo
 4. Touchable opacity
-5. Flat List
-6. Navigation
+5. Navigation (with AppLoading)
+6. Flat List
+
 
 
 Labs requirement: publish apps to expo accounts and provide QR codes
