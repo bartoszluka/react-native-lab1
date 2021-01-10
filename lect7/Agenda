@@ -1,0 +1,17 @@
+DEMO AGENDA
+
+1. Initial empty app (v.1.initial-app)
+2. Debugging (v.2.console-log)
+    - console log
+    - remote Debugging
+    - breakpoints
+    - mention react-native-debugger (https://github.com/jhen0409/react-native-debugger/releases)
+    - connecting more then one device
+
+3. Publish to Expo
+4. Touchable opacity
+5. Flat List
+6. Navigation
+
+
+Labs requirement: publish apps to expo accounts and provide QR codes
