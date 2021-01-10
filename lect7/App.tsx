@@ -1,50 +1,89 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 
-export default function App() {
+const data = [
+  {
+    id: '1',
+    title: 'First Item',
+  },
+  {
+    id: '2',
+    title: 'Second Item',
+  },
+  {
+    id: '3',
+    title: 'Third Item',
+  },
+  {
+    id: '4',
+    title: 'Fourth Item',
+  },
+  {
+    id: '5',
+    title: 'Fifth Item',
+  },
+  {
+    id: '6',
+    title: 'Sixth Item',
+  },
+  {
+    id: '7',
+    title: 'Seventh Item',
+  },
+  {
+    id: '8',
+    title: 'Eighth Item',
+  },
+  {
+    id: '9',
+    title: 'Nineth Item',
+  },
+  {
+    id: '10',
+    title: 'Tenth Item',
+  },
+  {
+    id: '11',
+    title: 'Eleventh Item',
+  },
+];
 
-  function ScreenOne({ navigation }) {
-    return (
-      <View style={styles.container}>
-        <Button
-          title="Go to Screen Two"
-          onPress={() => navigation.navigate('Screen Two')}
-        />
-      </View>
-    );
-  }
+const Item = ({ title }) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
 
-  function ScreenTwo({ navigation }) {
-    return (
-      <View style={styles.container}>
-        <Button
-          title="Go to Screen One"
-          onPress={() => navigation.navigate('Screen One')}
-        />
-      </View>
-    );
-  }
-
-  const Stack = createStackNavigator();
+const App = () => {
+  const renderItem = ({ item }) => (
+    <Item title={item.title} />
+  );
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Screen One">
-        <Stack.Screen name="Screen One" component={ScreenOne} />
-        <Stack.Screen name="Screen Two" component={ScreenTwo} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: 'center',
-    paddingHorizontal: 20
-  }
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    backgroundColor: '#00bfff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 24,
+  },
 });
+
+export default App;
