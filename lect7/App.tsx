@@ -1,71 +1,42 @@
-import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image } from 'react-native';
 
-const data = [
-  {
-    id: '1',
-    title: 'First Item',
-  },
-  {
-    id: '2',
-    title: 'Second Item',
-  },
-  {
-    id: '3',
-    title: 'Third Item',
-  },
-  {
-    id: '4',
-    title: 'Fourth Item',
-  },
-  {
-    id: '5',
-    title: 'Fifth Item',
-  },
-  {
-    id: '6',
-    title: 'Sixth Item',
-  },
-  {
-    id: '7',
-    title: 'Seventh Item',
-  },
-  {
-    id: '8',
-    title: 'Eighth Item',
-  },
-  {
-    id: '9',
-    title: 'Nineth Item',
-  },
-  {
-    id: '10',
-    title: 'Tenth Item',
-  },
-  {
-    id: '11',
-    title: 'Eleventh Item',
-  },
-];
-
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+  const renderListItem = ({ item }) => (
+    <View style={styles.item}>
+      <Text style={styles.title}>{item.name}</Text>
+      <Image
+        style={styles.flag}
+        source={{
+          uri: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`,
+        }}
+      />
+    </View>
+  );
 
 const App = () => {
-  const renderItem = ({ item }) => (
-    <Item title={item.title} />
-  );
+  const [isLoading, setLoading] = useState(true);
+  const [countries, setCountries] = useState([]);
+
+
+  useEffect(() => {
+    fetch('https://restcountries.eu/rest/v2/all')
+      .then((response) => response.json())
+      .then((json) => setCountries(json))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
+      { isLoading ? <Text>Loading...</Text> :
+        <View>
+          <Text>Found {countries.length} countries</Text>
+          <FlatList
+            data={countries.slice(0, countries.length)}
+            renderItem={renderListItem}
+            keyExtractor={item => item.name}
+          />
+        </View>}
     </SafeAreaView>
   );
 }
@@ -84,6 +55,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
   },
+  flag: {
+    height: 64,
+    width: 64
+  }
 });
 
 export default App;
