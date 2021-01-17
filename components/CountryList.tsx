@@ -10,7 +10,12 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
-const renderListItem = ({ item }) => (
+interface Props {
+	item: { name: string; alpha2Code: string };
+	navigation: any;
+}
+
+const countryListItem = ({ item, navigation }: Props) => (
 	<TouchableOpacity
 		onPress={() => {
 			navigation.navigate('Details', { item });
@@ -26,6 +31,7 @@ const renderListItem = ({ item }) => (
 		/>
 	</TouchableOpacity>
 );
+
 const CountryList = ({ navigation }) => {
 	const [isLoading, setLoading] = useState(true);
 	const [countries, setCountries] = useState([]);
@@ -46,9 +52,11 @@ const CountryList = ({ navigation }) => {
 				<View>
 					<Text>Found {countries.length} countries</Text>
 					<FlatList
-						data={countries.slice(0, countries.length)}
-						renderItem={renderListItem}
-						keyExtractor={(item) => item.name}
+						data={[
+							{ countries: countries.slice(0, countries.length) },
+							{ navigation: navigation },
+						]}
+						renderItem={countryListItem}
 					/>
 				</View>
 			)}
