@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from 'react-native';
 import {
 	SafeAreaView,
 	View,
@@ -51,13 +52,17 @@ const CountryList = ({ navigation }) => {
 			) : (
 				<View>
 					<Text>Found {countries.length} countries</Text>
-					<FlatList
+					<Button
+						title='go to details'
+						onPress={() => navigation.navigate('Details')}
+					/>
+					{/* <FlatList
 						data={[
 							{ countries: countries.slice(0, countries.length) },
 							{ navigation: navigation },
 						]}
 						renderItem={countryListItem}
-					/>
+					/> */}
 				</View>
 			)}
 		</SafeAreaView>
