@@ -10,26 +10,25 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 
+const renderListItem = ({ item }) => (
+	<TouchableOpacity
+		onPress={() => {
+			navigation.navigate('Details', { item });
+		}}
+		style={styles.item}
+	>
+		<Text style={styles.title}>{item.name}</Text>
+		<Image
+			style={styles.flag}
+			source={{
+				uri: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`,
+			}}
+		/>
+	</TouchableOpacity>
+);
 const CountryList = ({ navigation }) => {
 	const [isLoading, setLoading] = useState(true);
 	const [countries, setCountries] = useState([]);
-
-	const renderListItem = ({ item }) => (
-		<TouchableOpacity
-			onPress={() => {
-				navigation.navigate('Details', {item});
-			}}
-			style={styles.item}
-		>
-			<Text style={styles.title}>{item.name}</Text>
-			<Image
-				style={styles.flag}
-				source={{
-					uri: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`,
-				}}
-			/>
-		</TouchableOpacity>
-	);
 
 	useEffect(() => {
 		fetch('https://restcountries.eu/rest/v2/all')
