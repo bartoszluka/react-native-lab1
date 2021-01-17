@@ -1,7 +1,7 @@
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 
 import { View, Text, Image, StyleSheet } from 'react-native';
+import styles from '../styles/styles';
 
 const CountryDetails = ({
 	route,
@@ -29,19 +29,3 @@ const CountryDetails = ({
 	);
 };
 export default CountryDetails;
-
-const styles = StyleSheet.create({
-	item: {
-		backgroundColor: '#00bfff',
-		padding: 20,
-		marginVertical: 8,
-		marginHorizontal: 16,
-	},
-	title: {
-		fontSize: 24,
-	},
-	flag: {
-		height: 300,
-		width: 300,
-	},
-});
