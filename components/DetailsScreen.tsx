@@ -3,13 +3,18 @@ import React from 'react';
 
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const CountryDetails = ({ route, navigation }) => {
-	// const { item } = route.params;
-	// navigation.setOptions({ title: `${item.name} details` });
+const CountryDetails = ({
+	route,
+	navigation,
+}: {
+	route: any;
+	navigation: any;
+}) => {
+	const { item } = route.params;
+	navigation.setOptions({ title: `${item.name} details` });
 	return (
 		<View>
-			<Text>I am Details</Text>
-			{/* <Text>{item.name}</Text>
+			<Text>{item.name}</Text>
 			<Text>{item.capital}</Text>
 			<Text>{item.region}</Text>
 			<Text>{item.nativeName}</Text>
@@ -19,7 +24,7 @@ const CountryDetails = ({ route, navigation }) => {
 				source={{
 					uri: `https://www.countryflags.io/${item.alpha2Code}/flat/64.png`,
 				}}
-			/> */}
+			/>
 		</View>
 	);
 };

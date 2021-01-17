@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-native';
 import {
 	SafeAreaView,
 	View,
@@ -16,7 +15,7 @@ interface Props {
 	navigation: any;
 }
 
-const countryListItem = ({ item, navigation }: Props) => (
+const countryListItem = ({ item }: Props) => (
 	<TouchableOpacity
 		onPress={() => {
 			navigation.navigate('Details', { item });
@@ -33,7 +32,7 @@ const countryListItem = ({ item, navigation }: Props) => (
 	</TouchableOpacity>
 );
 
-const CountryList = ({ navigation }) => {
+function CountryList({ navigation }) {
 	const [isLoading, setLoading] = useState(true);
 	const [countries, setCountries] = useState([]);
 
@@ -43,7 +42,7 @@ const CountryList = ({ navigation }) => {
 			.then((json) => setCountries(json))
 			.catch((error) => console.error(error))
 			.finally(() => setLoading(false));
-	}, []);
+	}, [countries]);
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -52,22 +51,17 @@ const CountryList = ({ navigation }) => {
 			) : (
 				<View>
 					<Text>Found {countries.length} countries</Text>
-					<Button
-						title='go to details'
-						onPress={() => navigation.navigate('Details')}
-					/>
-					{/* <FlatList
-						data={[
-							{ countries: countries.slice(0, countries.length) },
-							{ navigation: navigation },
-						]}
+					<FlatList
+						// data={countries.slice(0, countries.length)}
+						data={countries}
 						renderItem={countryListItem}
-					/> */}
+						keyExtractor={(item) => item.name}
+					/>
 				</View>
 			)}
 		</SafeAreaView>
 	);
-};
+}
 
 export default CountryList;
 const styles = StyleSheet.create({
