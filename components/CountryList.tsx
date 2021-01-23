@@ -28,7 +28,7 @@ function CountryList({ navigation }) {
 		// Will change fadeAnim value to 1 in 5 seconds
 		Animated.timing(fadeAnim, {
 			toValue: 1,
-			duration: 500,
+			duration: 1000,
 			useNativeDriver: true,
 		}).start();
 	};
@@ -48,7 +48,10 @@ function CountryList({ navigation }) {
 			.then((response) => response.json())
 			.then((json) => setCountries(json))
 			.catch((error) => console.error(error))
-			.finally(() => setLoading(false));
+			.finally(() => {
+				setLoading(false);
+				fadeIn();
+			});
 	};
 	useEffect(() => {
 		console.log('rerendered');
@@ -86,7 +89,7 @@ function CountryList({ navigation }) {
 			{isLoading ? (
 				<Text>Loading...</Text>
 			) : (
-				<View>
+				<Animated.View style={{ opacity: fadeAnim }}>
 					<Text>
 						found {countries.length ? `${countries.length}` : '0'}{' '}
 						countr{countries.length === 1 ? 'y' : 'ies'}
@@ -99,7 +102,7 @@ function CountryList({ navigation }) {
 						onRefresh={handleRefresh}
 						refreshing={isLoading}
 					/>
-				</View>
+				</Animated.View>
 			)}
 		</SafeAreaView>
 	);

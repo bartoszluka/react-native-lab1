@@ -18,5 +18,8 @@ const styles = StyleSheet.create({
 		height: 64,
 		width: 64,
 	},
+	fadingContainer: {
+		opacity: 0,
+	},
 });
 export default styles;
