@@ -14,6 +14,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import CountryList from './CountryList';
 import DetailsScreen from './DetailsScreen';
+import Animations from './Animations';
 
 const HomeScreen = () => {
 	const Stack = createStackNavigator();
