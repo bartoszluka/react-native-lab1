@@ -33,6 +33,20 @@ function CountryList({ navigation }) {
 		}).start();
 	};
 
+	const rotation = useRef(new Animated.Value(0)).current;
+
+	const rotateIn = rotation.interpolate({
+		inputRange: [0, 1],
+		outputRange: ['0deg', '90deg'],
+	});
+
+	const rotate = (item) => {
+		Animated.timing(rotation, {
+			toValue: 1,
+			duration: 500,
+			useNativeDriver: true,
+		}).start(() => navigation.navigate('Details', { item }));
+	};
 	const fadeOut = () => {
 		Animated.timing(fadeAnim, {
 			toValue: 0,
@@ -48,9 +62,10 @@ function CountryList({ navigation }) {
 			.then((response) => response.json())
 			.then((json) => setCountries(json))
 			.catch((error) => console.error(error))
+			.then(() => fadeIn())
+
 			.finally(() => {
 				setLoading(false);
-				fadeIn();
 			});
 	};
 	useEffect(() => {
@@ -62,7 +77,8 @@ function CountryList({ navigation }) {
 		return (
 			<CountryListItem
 				item={item}
-				onPress={() => navigation.navigate('Details', { item })}
+				// onPress={() => navigation.navigate('Details', { item })}
+				onPress={() => rotate(item)}
 			/>
 		);
 	};
@@ -89,7 +105,12 @@ function CountryList({ navigation }) {
 			{isLoading ? (
 				<Text>Loading...</Text>
 			) : (
-				<Animated.View style={{ opacity: fadeAnim }}>
+				<Animated.View
+					style={{
+						opacity: fadeAnim,
+						transform: [{ rotateY: rotateIn }],
+					}}
+				>
 					<Text>
 						found {countries.length ? `${countries.length}` : '0'}{' '}
 						countr{countries.length === 1 ? 'y' : 'ies'}
